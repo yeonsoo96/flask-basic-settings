@@ -13,13 +13,14 @@ DEBUG = False
 app = Flask(__name__)
 db = SQLAlchemy(app)
 
-
-
-
-if os.environ.get('MODE') == 'DEV':
-    HOST_ADDR = '0.0.0.0'
+# select operation mode
+if os.environ.get('MODE') == 'DEV':  # mode - development
+    HOST_ADDR = '127.0.0.1'
     DEBUG = True
-else:
+elif os.environ.get('MODE') == 'RUN':  # mode - release
+    HOST_ADDR = '0.0.0.0'
+    DEBUG = False
+else:  # select not permission mode
     raise Exception('MODE error')
 
 
