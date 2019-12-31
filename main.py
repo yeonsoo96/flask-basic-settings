@@ -24,9 +24,11 @@ else:  # select not permission mode
     raise Exception('MODE error')
 
 
-@app.route("/", methods=['GET', 'POST'])
-def call_login():
-    return login.login()
+@app.route("/", methods=['GET', 'POST', 'DELETE', 'PUT'])
+def url_match():
+    crud
+def call_login():  # 로그인 정보를 받아와서 유효성을 확인한다
+    return request.form
 
 
 def hello():
