@@ -2,7 +2,7 @@ from settings.settings import db
 
 
 class User(db.Model):
-    __tablename__ = 'user'
+    __tablename__ = 'user_info'
     __table_args__ = {'mysql_collate': 'utf8_general_ci'}
 
     user_id = db.Column(db.String(30), primary_key=True, unique=True)
