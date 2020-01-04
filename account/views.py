@@ -34,4 +34,9 @@ class AccountUser(MethodView):
         return jsonify(serialize(get_user)), 200
 
     def put(self):
-        return 'put'
+        get_user = db.session.query(User).filter(User.user_id == request.form['user_id']).first()
+        if get_user is None:  # 해당하는 정보가 없음
+            return jsonify(), 400
+        get_user.user_name = request.form['new_name']  # 유저의 이름을 수정
+        db.session.commit()
+        return jsonify(serialize(get_user)), 200
