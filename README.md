@@ -4,12 +4,15 @@ DB : PostgreSQL
 reference link - https://github.com/snowplow/snowplow/wiki/Setting-up-PostgreSQL
 ```
 $ sudo yum install postgresql postgresql-server postgresql-devel postgresql-contrib postgresql-docs
+user : postgres
+pw : root
+database name : test
+port 5432
 ```
   
 ## 필요한 모듈 설치  
 ### 윈도우
 ```
-
 pip install -r requirments.txt  
 ```
 ### 리눅스  
