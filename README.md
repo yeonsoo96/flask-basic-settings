@@ -26,4 +26,21 @@ pip install -r requirments.txt
 pip3 install -r requirments-linux.txt  
 ```
 
-## 
+## 개발서버 실행방법
+## 윈도우
+```
+set MODE=DEV
+python manage.py db init
+python manage.py db migrate
+python manage.py db upgrade
+python manage.py runserver
+```
+##리눅스
+```
+export MODE=DEV
+python3 manage.py db init
+python3 manage.py db migrate
+python3 manage.py db upgrade
+python3 manage.py runserver
+```
+
