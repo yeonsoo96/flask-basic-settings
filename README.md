@@ -2,6 +2,12 @@
 ## 필요 패키지  
 DB : PostgreSQL  
 reference link - https://github.com/snowplow/snowplow/wiki/Setting-up-PostgreSQL
+### 윈도우
+```
+https://www.postgresql.org/download/
+다 next해서 설치
+```
+### 리눅스
 ```
 $ sudo yum install postgresql postgresql-server postgresql-devel postgresql-contrib postgresql-docs
 user : postgres
