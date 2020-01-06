@@ -13,7 +13,7 @@ $ sudo yum install postgresql postgresql-server postgresql-devel postgresql-cont
 user : postgres
 pw : root
 database name : test
-port 5432
+port : 5432
 ```
   
 ## 필요한 모듈 설치  
