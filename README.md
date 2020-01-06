@@ -10,12 +10,13 @@ https://www.postgresql.org/download/
 ### 리눅스
 ```
 $ sudo yum install postgresql postgresql-server postgresql-devel postgresql-contrib postgresql-docs
+```
+```
 user : postgres
 pw : root
 database name : test
 port : 5432
 ```
-  
 ## 필요한 모듈 설치  
 ### 윈도우
 ```
