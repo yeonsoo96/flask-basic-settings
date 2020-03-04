@@ -3,10 +3,12 @@ import sys
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from api.server import app as api_server
+from api.test import app as api_test
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
 # define
-HOST_ADDR = '127.0.0.1'  # localhost 주소
+HOST_ADDR = '127.0.0.1'  # localhost address
 SERVER_PORT = '8000'  # 서버 포트
 DEBUG = False  # 디버그모드
 MODE = os.environ.get('MODE')
@@ -21,9 +23,14 @@ POSTGRESQL = f'postgresql://{USER}:{PASSWOLRD}@{HOST_ADDR}:{DB_PORT}/{NAME}'  # 
 
 # app settings
 app = Flask(__name__)
+app.debug = DEBUG  # debug mode
 app.config['SQLALCHEMY_DATABASE_URI'] = POSTGRESQL  # db connect
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 CORS(app)
+
+# app connections
+app.register_blueprint(api_server)
+app.register_blueprint(api_test)
 
 # select operation mode
 if MODE == 'TEST' or sys.argv[0].endswith('test'):  # use only pytest
@@ -40,13 +47,6 @@ else:  # select not permission mode
 
 
 # manager
-app.debug = DEBUG  # 실행 모드에 따라 디버그 온오프
 db = SQLAlchemy(app)
 
 
-# connect models
-from .models import *
-
-
-# connect urls
-from .urls import *
