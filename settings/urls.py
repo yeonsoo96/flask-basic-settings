@@ -8,5 +8,11 @@ from settings.settings import app
 from login import urls as loginurls
 from account import urls as accounturls
 
+
+@app.route('/ping', methods=['GET'])
+def ping():  # 서버 연결 테스트용
+    return 'ping'
+
+
 app.register_blueprint(loginurls.app, url_prefix='/login')  # /login으로 시작하면 login_app으로 연결
 app.register_blueprint(accounturls.app, url_prefix='/account')
