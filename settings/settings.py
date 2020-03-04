@@ -21,17 +21,6 @@ NAME = 'test'  # db name
 POSTGRESQL = f'postgresql://{USER}:{PASSWOLRD}@{HOST_ADDR}:{DB_PORT}/{NAME}'  # postgresql uri
 
 
-# app settings
-app = Flask(__name__)
-app.debug = DEBUG  # debug mode
-app.config['SQLALCHEMY_DATABASE_URI'] = POSTGRESQL  # db connect
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-CORS(app)
-
-# app connections
-app.register_blueprint(api_server)
-app.register_blueprint(api_test)
-
 # select operation mode
 if MODE == 'TEST' or sys.argv[0].endswith('test'):  # use only pytest
     HOST_ADDR = '127.0.0.1'
@@ -44,6 +33,19 @@ elif MODE == 'RUN':  # mode - release
     DEBUG = False
 else:  # select not permission mode
     raise KeyError
+
+
+# app settings
+app = Flask(__name__)
+app.debug = DEBUG  # debug mode
+app.config['SQLALCHEMY_DATABASE_URI'] = POSTGRESQL  # db connect
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+CORS(app)
+
+
+# app connections
+app.register_blueprint(api_server)
+app.register_blueprint(api_test)
 
 
 # manager
