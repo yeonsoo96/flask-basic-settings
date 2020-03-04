@@ -5,7 +5,6 @@
 '''
 
 from settings.settings import app
-from login import urls as loginurls
 from account import urls as accounturls
 from flask import json, request, Response
 import os
@@ -27,5 +26,4 @@ def hooks():
     return Response('push', status=200)
 
 
-app.register_blueprint(loginurls.app, url_prefix='/login')  # /login으로 시작하면 login_app으로 연결
 app.register_blueprint(accounturls.app, url_prefix='/account')
