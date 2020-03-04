@@ -1,17 +1,12 @@
-from functools import singledispatch
-from settings.models import *
+from typequery import GenericMethod
+
+serialize = GenericMethod('serialize')
 
 
-@singledispatch
-def serialize(x):
-    return x
-
-
-@serialize.register(User)
-def serialize(user):
-    result = {
-        'user_id': user.user_id,
-        'user_pw': user.user_pw,
-        'user_name': user.user_name,
-    }
-    return result
+@serialize.of(bool)
+@serialize.of(type(None))
+@serialize.of(int)
+@serialize.of(float)
+@serialize.of(str)
+def serialize(value, **kwargs):
+    return value
