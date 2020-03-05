@@ -1,15 +1,19 @@
+import logging
 import os
 import sys
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+
+from flask import Flask, request
 from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
+
 from api.server import app as api_server
 from api.test import app as api_test
+
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
 # define
 HOST_ADDR = '127.0.0.1'  # localhost address
-SERVER_PORT = '8000'  # 서버 포트
+SERVER_PORT = 8000  # 서버 포트
 DEBUG = False  # 디버그모드
 MODE = os.environ.get('MODE')
 
@@ -40,7 +44,19 @@ app = Flask(__name__)
 app.debug = DEBUG  # debug mode
 app.config['SQLALCHEMY_DATABASE_URI'] = POSTGRESQL  # db connect
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['LOGGING_LEVEL'] = logging.DEBUG
 CORS(app)
+logger = logging.getLogger('my_logger')
+
+# @app.after_request
+# def after_request(response):
+#     # timestamp = strftime('[%Y-%b-%d %H:%M]')
+#     logging.info(f'{request}')
+#     return response
+#
+# @app.before_request
+# def before_request():
+#     pass
 
 
 # app connections
