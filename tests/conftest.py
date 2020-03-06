@@ -1,5 +1,5 @@
 from pytest import fixture
-from settings.settings import app
+from settings.wsgi import app
 
 
 @fixture()
