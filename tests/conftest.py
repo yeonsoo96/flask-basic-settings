@@ -1,5 +1,7 @@
 from pytest import fixture
-from settings.wsgi import app
+from settings.wsgi import create_wsgi
+
+app = create_wsgi()
 
 
 @fixture()
