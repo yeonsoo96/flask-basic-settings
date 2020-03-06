@@ -46,17 +46,16 @@ app.config['SQLALCHEMY_DATABASE_URI'] = POSTGRESQL  # db connect
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['LOGGING_LEVEL'] = logging.DEBUG
 CORS(app)
-logger = logging.getLogger('my_logger')
 
-# @app.after_request
-# def after_request(response):
-#     # timestamp = strftime('[%Y-%b-%d %H:%M]')
-#     logging.info(f'{request}')
-#     return response
-#
-# @app.before_request
-# def before_request():
-#     pass
+
+@app.before_request
+def before_request():
+    pass
+
+@app.after_request
+def after_request(response):
+    print(request.environ.get('HTTP_X_REAL_IP', request.remote_addr), request.method, request.url, response.status_code)
+    return response
 
 
 # app connections
