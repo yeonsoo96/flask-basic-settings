@@ -3,5 +3,4 @@
 venv/*
 .idea/*
 *.pyc
-migrations/*
 *.log
