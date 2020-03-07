@@ -1,5 +1,6 @@
-from flask import json, request, Response, Blueprint
 import os
+
+from flask import json, request, Response, Blueprint
 
 app = Blueprint('server', __name__, url_prefix='/api')
 
@@ -18,5 +19,3 @@ def hooks():
     if res['ref'] == 'refs/heads/deploy':
         os.system(f'sh {root_dir}/settings/hooks.sh')
     return Response('push', status=200)
-
-
