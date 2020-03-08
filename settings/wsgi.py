@@ -21,13 +21,14 @@ def after_request(response):  # 정상적으로 처리시 로그를 남김
 
 
 def trace_back_recent_call():  # 오류가 난 코드의 위치를 스트링으로 반환함.
-    error_location = traceback.format_exc().split('\n')[15]
+    error_location = traceback.format_exc()
     return error_location
 
 
 def error_handler(error):  # 에러 발생시 로그를 남김
-    logger.error(f'{request.remote_addr} {time.strftime("%Y-%m-%d  %X", time.localtime(time.time()))} '
-                 f'{request.method} {request.url} {error.code} - {request.user_agent} \n {trace_back_recent_call()}')
+    if not request.url.endswith('favicon.ico'):
+        logger.error(f'{request.remote_addr} {time.strftime("%Y-%m-%d  %X", time.localtime(time.time()))} '
+                     f'{request.method} {request.url} {error.code} - {request.user_agent} \n {trace_back_recent_call()}')
 
 
 def create_wsgi():
@@ -38,9 +39,10 @@ def create_wsgi():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.after_request(after_request)
     app.register_error_handler(HTTPException, error_handler)
-    CORS(app)
 
     # app connections
     app.register_blueprint(api_server)
     app.register_blueprint(api_test)
+
+    CORS(app)
     return app
