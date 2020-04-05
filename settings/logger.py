@@ -38,8 +38,9 @@ logger = create_logger()
 
 
 def after_request(response):  # 정상적으로 처리시 로그를 남김
-    logger.info(f'{request.remote_addr} {time.strftime("%Y-%m-%d  %X", time.localtime(time.time()))}  '
-                f'{request.method} {request.url} {response.status_code} - {request.user_agent}')
+    if not request.url.endswith('/favicon.ico'):  # favicon 무시
+        logger.info(f'{request.remote_addr} {time.strftime("%Y-%m-%d  %X", time.localtime(time.time()))}  '
+                    f'{request.method} {request.url} {response.status_code} - {request.user_agent}')
     return response
 
 
@@ -49,5 +50,7 @@ def trace_back_recent_call():  # 오류가 난 코드의 위치를 스트링으�
 
 
 def error_handler(error):  # 에러 발생시 로그를 남김
-    logger.error(f'{request.remote_addr} {time.strftime("%Y-%m-%d  %X", time.localtime(time.time()))} '
-                 f'{request.method} {request.url} {error.code} - {request.user_agent} \n {trace_back_recent_call()}')
+    if '/favicon.ico' not in request.url:  # favicon 무시
+        logger.error(f'{request.remote_addr} {time.strftime("%Y-%m-%d  %X", time.localtime(time.time()))} '
+                     f'{request.method} {request.url} {error.code} - {request.user_agent} \n {trace_back_recent_call()}')
+
