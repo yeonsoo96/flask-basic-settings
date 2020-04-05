@@ -1,5 +1,9 @@
 import logging
 import sys
+import time
+import traceback
+
+from flask import request
 
 
 def create_logger():  # pytest에서는 로그를 저장 안함
@@ -28,3 +32,22 @@ def create_logger():  # pytest에서는 로그를 저장 안함
     else:
         logger = logging.getLogger(__name__)
     return logger
+
+
+logger = create_logger()
+
+
+def after_request(response):  # 정상적으로 처리시 로그를 남김
+    logger.info(f'{request.remote_addr} {time.strftime("%Y-%m-%d  %X", time.localtime(time.time()))}  '
+                f'{request.method} {request.url} {response.status_code} - {request.user_agent}')
+    return response
+
+
+def trace_back_recent_call():  # 오류가 난 코드의 위치를 스트링으로 반환함.
+    error_location = traceback.format_exc()
+    return error_location
+
+
+def error_handler(error):  # 에러 발생시 로그를 남김
+    logger.error(f'{request.remote_addr} {time.strftime("%Y-%m-%d  %X", time.localtime(time.time()))} '
+                 f'{request.method} {request.url} {error.code} - {request.user_agent} \n {trace_back_recent_call()}')
