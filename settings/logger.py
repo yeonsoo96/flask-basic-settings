@@ -52,4 +52,3 @@ def trace_back_recent_call():  # 오류가 난 코드의 위치를 스트링으�
 def error_handler(error):  # 에러 발생시 로그를 남김
     logger.error(f'{request.remote_addr} {time.strftime("%Y-%m-%d  %X", time.localtime(time.time()))} '
                  f'{request.method} {request.url} {error.code} - {request.user_agent} \n {trace_back_recent_call()}')
-

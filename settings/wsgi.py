@@ -17,7 +17,6 @@ def create_wsgi():
     app.after_request(after_request)
     app.register_error_handler(InternalServerError, error_handler)
 
-
     # app connections
     app.register_blueprint(api_server)
     app.register_blueprint(api_test)
