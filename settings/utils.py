@@ -1,4 +1,5 @@
 import functools
+
 from flask import request
 
 
@@ -12,4 +13,5 @@ def api(f):
         else:
             data = {}
         return f(data, *args, **kwargs)
+
     return deco
