@@ -1,9 +1,9 @@
 from sqlalchemy import Column, UniqueConstraint, Integer, String, Unicode
 
-from manage import db
+from db import Base
 
 
-class Example(db.Model):
+class Example(Base):
     __tablename__ = 'example'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
