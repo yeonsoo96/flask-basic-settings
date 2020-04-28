@@ -1,9 +1,9 @@
-from settings.settings import POSTGRESQL
+from settings.settings import DB_URI
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-engine = create_engine(POSTGRESQL, connect_args={'connect_timeout': 10})
+engine = create_engine(DB_URI, connect_args={'connect_timeout': 10})
 Session = sessionmaker(bind=engine)
 metadata = MetaData()
 Base = declarative_base(metadata=metadata)
