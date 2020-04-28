@@ -13,13 +13,16 @@ MODE = os.environ.get('MODE')
 USER = 'postgres'  # username
 PASSWOLRD = 'root'  # postgresql pw
 DB_PORT = '5432'  # postgresql port
-NAME = 'test'  # db name
+NAME = 'flask_basic'  # db name
 POSTGRESQL = f'postgresql://{USER}:{PASSWOLRD}@{HOST_ADDR}:{DB_PORT}/{NAME}'  # postgresql uri
 
 # select operation mode
 if MODE == 'TEST' or sys.argv[0].endswith('test'):  # use only pytest
     HOST_ADDR = '127.0.0.1'
     DEBUG = False
+    NAME = NAME + '_test'
+    POSTGRESQL = f'postgresql://{USER}:{PASSWOLRD}@{HOST_ADDR}:{DB_PORT}/{NAME}'  # postgresql uri
+
 elif MODE == 'DEV':  # mode - development
     HOST_ADDR = '127.0.0.1'
     DEBUG = True
